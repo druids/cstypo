@@ -185,7 +185,7 @@ class TxtParser(object):
         """
 
         with_year = re.compile(r'(?<!\d)(\d{1,2}\.) (\d{1,2}\.) (\d\d)')
-        substituted = self.sub(with_year, r'\1\u00a0\2\u00a0\3', text)
+        substituted = with_year.sub('\\1\u00a0\\2\u00a0\\3', text)
 
         without_year = re.compile(r'(?<!\d)(\d{1,2}\.) (\d{1,2}\.)')
         substituted = self.sub(without_year, r'\1\u00a0\2', substituted)
