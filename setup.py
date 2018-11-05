@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='cstypo',
-    version='0.1.4',
+    version='0.1.5',
     author='Juda Kaleta',
     author_email='juda.kaleta@gmail.com',
     packages=['cstypo', 'cstypo.templatetags', 'cstypo.tests'],
