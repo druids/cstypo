@@ -185,10 +185,10 @@ class TxtParser(object):
         """
 
         with_year = re.compile(r'(?<!\d)(\d{1,2}\.) (\d{1,2}\.) (\d\d)')
-        substituted = with_year.sub(r'\1\u00a0\2\u00a0\3', text)
+        substituted = with_year.sub('\\1\u00a0\\2\u00a0\\3', text)
 
         without_year = re.compile(r'(?<!\d)(\d{1,2}\.) (\d{1,2}\.)')
-        substituted = without_year.sub(r'\1\u00a0\2', substituted)
+        substituted = without_year.sub('\\1\u00a0\\2', substituted)
 
         return substituted
 
@@ -264,7 +264,7 @@ class TxtParser(object):
         """
 
         between = re.compile(r'(\d+)( ?)x\2(?=\d)')
-        substituted = self.sub(between, r'\1\2''\u00d7''\2', text)
+        substituted = self.sub(between, '\\1\\2\u00d7\\2', text)
 
         after = re.compile(r'(?<=\d)x(?=[ ,.]|$)', re.M)
         substituted = self.sub(after, '\u00d7', substituted)
@@ -294,7 +294,7 @@ class TxtParser(object):
                     "
                     (?!")               # no " after
                 """, re.U | re.X | re.M | re.S)
-        text = self.sub(double, '\u201E'r'\1''\u201C', text)
+        text = self.sub(double, '\u201E\\1\u201C', text)
 
         single = re.compile("""
                     (?<!'|\w)           # no ' or alphachars before
@@ -305,7 +305,7 @@ class TxtParser(object):
                     '
                     (?!')               # no ' after
                 """, re.U | re.X | re.M | re.S)
-        text = self.sub(single, '\u201A'r'\1''\u2018', text)
+        text = self.sub(single, '\u201A\\1\u2018', text)
 
         return text
 
@@ -323,7 +323,7 @@ class TxtParser(object):
 
         pattern = re.compile(r'(?<= |\u00a0)([KkOoSsUuVvZzIiAa]) ', re.M)
 
-        return self.sub(pattern, r'\1''\u00a0', text)
+        return self.sub(pattern, '\\1\u00a0', text)
 
     def parse_last_short_words(self, text):
         """
